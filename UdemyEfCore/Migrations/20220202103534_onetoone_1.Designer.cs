@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UdemyEfCore.Data.Contexts;
 
 namespace UdemyEfCore.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20220202103534_onetoone_1")]
+    partial class onetoone_1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,30 +34,6 @@ namespace UdemyEfCore.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
-                });
-
-            modelBuilder.Entity("UdemyEfCore.Data.Entities.Employee", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Firstname")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Lastname")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Employees");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Employee");
                 });
 
             modelBuilder.Entity("UdemyEfCore.Data.Entities.Product", b =>
@@ -83,21 +61,6 @@ namespace UdemyEfCore.Migrations
                         .IsUnique();
 
                     b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("UdemyEfCore.Data.Entities.ProductCategory", b =>
-                {
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CategoryId", "ProductId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("productCategories");
                 });
 
             modelBuilder.Entity("UdemyEfCore.Data.Entities.ProductDetail", b =>
@@ -141,45 +104,6 @@ namespace UdemyEfCore.Migrations
                     b.ToTable("SaleHistories");
                 });
 
-            modelBuilder.Entity("UdemyEfCore.Data.Entities.FulltimeEmployee", b =>
-                {
-                    b.HasBaseType("UdemyEfCore.Data.Entities.Employee");
-
-                    b.Property<decimal>("HourlyWage")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasDiscriminator().HasValue("FulltimeEmployee");
-                });
-
-            modelBuilder.Entity("UdemyEfCore.Data.Entities.ParttimeEmployee", b =>
-                {
-                    b.HasBaseType("UdemyEfCore.Data.Entities.Employee");
-
-                    b.Property<decimal>("DailyWage")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasDiscriminator().HasValue("ParttimeEmployee");
-                });
-
-            modelBuilder.Entity("UdemyEfCore.Data.Entities.ProductCategory", b =>
-                {
-                    b.HasOne("UdemyEfCore.Data.Entities.Category", "Category")
-                        .WithMany("productCategories")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("UdemyEfCore.Data.Entities.Product", "Product")
-                        .WithMany("productCategories")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("UdemyEfCore.Data.Entities.ProductDetail", b =>
                 {
                     b.HasOne("UdemyEfCore.Data.Entities.Product", "Product")
@@ -202,15 +126,8 @@ namespace UdemyEfCore.Migrations
                     b.Navigation("product");
                 });
 
-            modelBuilder.Entity("UdemyEfCore.Data.Entities.Category", b =>
-                {
-                    b.Navigation("productCategories");
-                });
-
             modelBuilder.Entity("UdemyEfCore.Data.Entities.Product", b =>
                 {
-                    b.Navigation("productCategories");
-
                     b.Navigation("ProductDetail");
 
                     b.Navigation("saleHistory");

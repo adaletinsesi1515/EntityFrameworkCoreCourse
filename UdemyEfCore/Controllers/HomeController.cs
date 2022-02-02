@@ -16,7 +16,7 @@ namespace UdemyEfCore.Controllers
         
         public IActionResult Index()
         {
-            Context c = new();
+            Context c = new Context();
 
             //EKLEME
             //var entityEntry = c.Products.Add(new Product()
@@ -36,7 +36,37 @@ namespace UdemyEfCore.Controllers
             //var productDelete = c.Products.FirstOrDefault(x => x.Id == 1);
             //c.Products.Remove(productDelete);
             //c.SaveChanges();
+
+            //c.Employees.Add(new ParttimeEmployee
+            //{
+            //    DailyWage = 400,
+            //    Firstname = "Memduh",
+            //    Lastname = "Gümen"                
+            //});
+
+            //c.Employees.Add(new ParttimeEmployee
+            //{
+            //    DailyWage = 500,
+            //    Firstname = "Memduh1",
+            //    Lastname = "Gümen1"
+            //});
+
+            //c.Employees.Add(new FulltimeEmployee
+            //{
+            //    HourlyWage = 200,
+            //    Firstname = "Hasan1",
+            //    Lastname = "Hasan1"
+            //});
             
+            //c.Employees.Add(new FulltimeEmployee
+            //{
+            //    HourlyWage = 300,
+            //    Firstname = "Hasan2",
+            //    Lastname = "Hasan2"
+            //});
+
+            //c.SaveChanges();
+
             return View();
         }
 

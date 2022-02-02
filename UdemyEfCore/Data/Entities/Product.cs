@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace UdemyEfCore.Data.Entities
 {
@@ -9,5 +10,11 @@ namespace UdemyEfCore.Data.Entities
         public decimal Price { get; set; }
 
         public DateTime CreateTime { get; set; }
+
+        public List<SaleHistory> saleHistory { get; set; }
+        public ProductDetail ProductDetail { get; set; }
+
+        public List<ProductCategory> productCategories { get; set; }
+
     }
 }

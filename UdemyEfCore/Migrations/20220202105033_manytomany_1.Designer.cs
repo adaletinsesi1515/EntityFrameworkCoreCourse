@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UdemyEfCore.Data.Contexts;
 
 namespace UdemyEfCore.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20220202105033_manytomany_1")]
+    partial class manytomany_1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,30 +34,6 @@ namespace UdemyEfCore.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
-                });
-
-            modelBuilder.Entity("UdemyEfCore.Data.Entities.Employee", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Firstname")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Lastname")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Employees");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Employee");
                 });
 
             modelBuilder.Entity("UdemyEfCore.Data.Entities.Product", b =>
@@ -139,26 +117,6 @@ namespace UdemyEfCore.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("SaleHistories");
-                });
-
-            modelBuilder.Entity("UdemyEfCore.Data.Entities.FulltimeEmployee", b =>
-                {
-                    b.HasBaseType("UdemyEfCore.Data.Entities.Employee");
-
-                    b.Property<decimal>("HourlyWage")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasDiscriminator().HasValue("FulltimeEmployee");
-                });
-
-            modelBuilder.Entity("UdemyEfCore.Data.Entities.ParttimeEmployee", b =>
-                {
-                    b.HasBaseType("UdemyEfCore.Data.Entities.Employee");
-
-                    b.Property<decimal>("DailyWage")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasDiscriminator().HasValue("ParttimeEmployee");
                 });
 
             modelBuilder.Entity("UdemyEfCore.Data.Entities.ProductCategory", b =>
