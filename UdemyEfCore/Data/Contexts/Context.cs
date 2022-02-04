@@ -50,8 +50,14 @@ namespace UdemyEfCore.Data.Contexts
             //sağlar , mükerrer kayıtları önler
             modelBuilder.Entity<Product>().HasIndex(x => x.Name).IsUnique(true);
 
-            
-            
+
+            //Tph && Tpt
+            modelBuilder.Entity<Employee>().ToTable("Empyoyees");
+            modelBuilder.Entity<FulltimeEmployee>().ToTable("FulltimeEmployees");
+            modelBuilder.Entity<ParttimeEmployee>().ToTable("ParttimeEmployees");
+
+
+
             base.OnModelCreating(modelBuilder);
         }
 
